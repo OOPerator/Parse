@@ -184,8 +184,6 @@ tool.Equipped:Connect(Equipped)
 
 function UnEquipped()
 	tool.Enabled = false
-	local hit_p = nil
-	local start_pos = nil
 end
 
 tool.Unequipped:Connect(UnEquipped)
@@ -199,8 +197,10 @@ end)
 ]], thistool)
 
 function cleanup()
-ray = nil
+isHolding = false
 beam:Destroy()
+startPos = nil
+hitPos = nil	
 end
 
 thistool.Equipped:Connect(newbeampart)
