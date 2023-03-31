@@ -197,7 +197,7 @@ end)
 ]], thistool)
 
 function cleanup()
-ray:Destroy()
+ray.Instance:Destroy()
 beam:Destroy()
 end
 
