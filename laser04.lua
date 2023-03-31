@@ -67,7 +67,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 		repeat
 			local direction = (hit_p - start_pos).Unit * 2000
 
-			local ray = workspace:Raycast(start_pos, direction)
+			ray = workspace:Raycast(start_pos, direction)
 
 
 			local midpoint = start_pos + direction/2
@@ -197,6 +197,7 @@ end)
 ]], thistool)
 
 function cleanup()
+ray:Destroy()
 beam:Destroy()
 end
 
