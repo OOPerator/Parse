@@ -197,7 +197,6 @@ end)
 ]], thistool)
 
 function cleanup()
-isHolding = false
 beam:Destroy()
 startPos = nil
 hitPos = nil	
