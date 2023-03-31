@@ -79,7 +79,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 
 				task.spawn(function()
 					while hit do
-						hb.PreAnimation:Wait()
+						hb.Heartbeat:Wait()
 						hit.Color = Color3.new(math.random(),math.random(),math.random())
 					end
 				end)
@@ -133,7 +133,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 				
 			end
 
-			hb.PreAnimation:Wait()
+			hb.Heartbeat:Wait()
 		until isHolding == false
 	end
 end)
@@ -171,7 +171,7 @@ function Equipped()
 	mouse.Button1Up:Connect(MouseUp)
 
 	while true do
-		hb.PreAnimation:Wait()
+		hb.Heartbeat:Wait()
 		if held and tool.Enabled then
 			local hit_p = mouse.Hit.p
 			local start_pos = tool.Handle.Position
@@ -219,7 +219,7 @@ function rainbow()
 		beam.Color = Color3.new(0/255,255/255,i/255)
 	end
 	for i = 255,0,-10 do
-		wait()
+		task.wait()
 		beam.Color = Color3.new(0/255,i/255,255/255)
 	end
 	for i = 0,255,10 do
