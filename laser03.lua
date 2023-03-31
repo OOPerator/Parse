@@ -79,7 +79,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 
 				task.spawn(function()
 					while hit do
-						task.wait:Wait()
+						task.wait()
 						hit.Color = Color3.new(math.random(),math.random(),math.random())
 					end
 				end)
