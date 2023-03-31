@@ -79,7 +79,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 
 				task.spawn(function()
 					while hit do
-						hb.Heartbeat:Wait()
+						task.wait:Wait()
 						hit.Color = Color3.new(math.random(),math.random(),math.random())
 					end
 				end)
@@ -188,7 +188,7 @@ end
 
 tool.Unequipped:Connect(UnEquipped)
 
-hb.RenderStepped:Connect(function()
+hb.Heartbeat:Connect(function()
 	local path = player.Character.Head:FindFirstChild("beam")
 	if path then
 		path.LocalTransparencyModifier = 0
