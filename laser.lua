@@ -97,7 +97,7 @@ toggleRemote = Instance.new("RemoteEvent",thistool)
 toggleRemote.Name = "Toggle"
 
 updatePos = Instance.new("RemoteEvent",thistool)
-updatePos.name = "Update"
+updatePos.Name = "Update"
 
 toggleRemote.OnServerEvent:Connect(function(plr, state)
 	if plr ~= owner then
