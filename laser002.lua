@@ -1,3 +1,4 @@
+local hb = game:GetService("RunService")
 local tween = game:GetService("TweenService")
 owner = owner
 
