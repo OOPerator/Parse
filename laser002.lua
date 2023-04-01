@@ -168,8 +168,6 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 				laze(ray.Instance)
 			end
 
-
-
 			local touch = workspace:GetPartsInPart(beam)
 			for i,v in pairs(touch) do
 				if not v:IsDescendantOf(owner.Character) and v.Name ~= "Base" then
