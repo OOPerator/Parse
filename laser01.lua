@@ -93,9 +93,11 @@ function makebeampart()
 end
 
 
-toggleRemote = script.Parent.Toggle
+toggleRemote = Instance.new("RemoteEvent",thistool)
+toggleRemote.Name = "Toggle"
 
-updatePos = script.Parent.Update
+updatePos = Instance.new("RemoteEvent",thistool)
+updatePos.name = "Update"
 
 toggleRemote.OnServerEvent:Connect(function(plr, state)
 	if plr ~= owner then
