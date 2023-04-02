@@ -123,8 +123,10 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 		if not hit_p or not start_pos then
 			repeat wait() until hit_p and start_pos
 		end
+			
 	if tool.Enabled == true then
 		repeat
+			
 			local direction = (hit_p - start_pos).Unit * 2000
 
 			local ray = workspace:Raycast(start_pos, direction)
@@ -139,7 +141,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 
 				task.spawn(function()
 					while hit do
-						task.wait()
+						hb.Heartbeat:Wait()
 						hit.Color = Color3.new(math.random(),math.random(),math.random())
 					end
 				end)
@@ -170,6 +172,8 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 					hit:Destroy()
 
 				end)
+
+
 			end
 
 
@@ -177,17 +181,40 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 				laze(ray.Instance)
 			end
 
+
+
 			local touch = workspace:GetPartsInPart(beam)
 			for i,v in pairs(touch) do
 				if not v:IsDescendantOf(owner.Character) and v.Name ~= "Base" then
 					laze(v)
 				end
+
 			end
+
 
 			hb.PreAnimation:Wait()
 		until isHolding == false
+		
 	end
+
 end)
+
+updatePos.OnServerEvent:Connect(function(plr, hitPos, startPos)
+	if plr ~= owner then
+		return
+	end
+
+	hit_p = hitPos
+	start_pos = startPos
+end)
+
+tool.Unequipped:Connect(function()
+	tool.Enabled = false
+	tool.Handle.beam:Destroy()
+	isHolding = false
+end)
+
+tool.Equipped:Connect(makebeampart)
 
 updatePos.OnServerEvent:Connect(function(plr, hitPos, startPos)
 	if plr ~= owner then
