@@ -53,7 +53,6 @@ function Equipped()
 		if held and tool.Enabled then
 			local hit_p = mouse.Hit.p
 			local start_pos = tool.Handle.Position
-			print("LocalMouse")
 			tool.Update:FireServer(hit_p,start_pos)			
 		end	
 	end
@@ -234,36 +233,36 @@ while true do
 
 	pcall(function()
 
-		task.wait()
+		hb.Heartbeat:Wait()
 
 		beam.Color = Color3.new(255/255,0/255,0/255)
 		for i = 0,255,10 do
-			task.wait()
+			hb.Heartbeat:Wait()
 			beam.Color = Color3.new(255/255,i/255,0/255)
 		end
 
 		for i = 255,0,-10 do
-			task.wait()
+			hb.Heartbeat:Wait()
 			beam.Color = Color3.new(i/255,255/255,0/255)
 		end
 
 		for i = 0,255,10 do
-			task.wait()
+			hb.Heartbeat:Wait()
 			beam.Color = Color3.new(0/255,255/255,i/255)
 		end
 
 		for i = 255,0,-10 do
-			task.wait()
+			hb.Heartbeat:Wait()
 			beam.Color = Color3.new(0/255,i/255,255/255)
 		end
 
 		for i = 0,255,10 do
-			task.wait()
+			hb.Heartbeat:Wait()
 			beam.Color = Color3.new(i/255,0/255,255/255)
 		end
 
 		for i = 255,0,-10 do
-			task.wait()
+			hb.Heartbeat:Wait()
 			beam.Color = Color3.new(255/255,0/255,i/255)
 		end
 
