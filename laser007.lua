@@ -1,5 +1,6 @@
-local hb = game:GetService("RunService")
 local tween = game:GetService("TweenService")
+local hb = game:GetService("RunService")
+local tool = thistool
 owner = owner
 
 thistool = Instance.new("Tool",owner.Backpack)
@@ -46,6 +47,7 @@ function Equipped()
 		if held and tool.Enabled then
 			local hit_p = mouse.Hit.p
 			local start_pos = tool.Handle.Position
+			print("LocalMouse")
 			tool.Update:FireServer(hit_p,start_pos)			
 		end	
 	end
@@ -60,11 +62,9 @@ end
 
 tool.Unequipped:Connect(UnEquipped)
 
-tool.Unequipped:Connect(UnEquipped)
-
-hb.Heartbeat:Connect(function()
+hb.PreAnimation:Connect(function()
 	local path = tool.Handle:FindFirstChild("beam")
-	if path then
+	if path and held then
 		path.LocalTransparencyModifier = 0
 	end
 end)
@@ -73,20 +73,30 @@ end)
 
 tool = thistool
 
+
 tool.Equipped:Connect(function()
 	
 	tool.Enabled = true
 	
 end)
 
+
+
 local isHolding = false
+
 
 local hit_p
 local start_pos
 
 if tool.Handle:FindFirstChild("beam") then
-	tool.Handle.Character:FindFirstChild("beam"):Destroy()
+	tool.Handle:FindFirstChild("beam"):Destroy()
 end
+
+toggleRemote = Instance.new("RemoteEvent",tool)
+toggleRemote.Name = "Toggle"
+
+updatePos = Instance.new("RemoteEvent",tool)
+updatePos.Name = "Update"
 
 function makebeampart()
 	beam = Instance.new("Part",tool.Handle)
@@ -102,14 +112,8 @@ function makebeampart()
 
 end
 
-
-toggleRemote = Instance.new("RemoteEvent",thistool)
-toggleRemote.Name = "Toggle"
-
-updatePos = Instance.new("RemoteEvent",thistool)
-updatePos.Name = "Update"
-
 toggleRemote.OnServerEvent:Connect(function(plr, state)
+	
 	if plr ~= owner then
 		return
 	end
@@ -119,11 +123,12 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 		beam.Transparency = 1
 	else
 		beam.Transparency = 0
+	end
 
 		if not hit_p or not start_pos then
 			repeat wait() until hit_p and start_pos
 		end
-			
+	
 	if tool.Enabled == true then
 		repeat
 			
@@ -216,22 +221,6 @@ end)
 
 tool.Equipped:Connect(makebeampart)
 
-updatePos.OnServerEvent:Connect(function(plr, hitPos, startPos)
-	if plr ~= owner then
-		return
-	end
-
-	hit_p = hitPos
-	start_pos = startPos
-end)
-
-tool.Unequipped:Connect(function()
-	tool.Enabled = false
-	tool.Handle.beam:Destroy()
-	isHolding = false
-end)
-
-tool.Equipped:Connect(makebeampart)
 
 while true do
 
