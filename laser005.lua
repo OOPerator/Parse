@@ -73,6 +73,12 @@ end)
 
 tool = thistool
 
+tool.Equipped:Connect(function()
+	
+	tool.Enabled = true
+	
+end)
+
 local isHolding = false
 
 local hit_p
@@ -115,9 +121,9 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 		beam.Transparency = 0
 
 		if not hit_p or not start_pos then
-			repeat task.wait() until hit_p and start_pos
+			repeat wait() until hit_p and start_pos
 		end
-
+	if tool.Enabled == true then
 		repeat
 			local direction = (hit_p - start_pos).Unit * 2000
 
@@ -192,12 +198,13 @@ updatePos.OnServerEvent:Connect(function(plr, hitPos, startPos)
 	start_pos = startPos
 end)
 
-function cleanup()
-	beam:Destroy()
-end
+tool.Unequipped:Connect(function()
+	tool.Enabled = false
+	tool.Handle.beam:Destroy()
+	isHolding = false
+end)
 
 tool.Equipped:Connect(makebeampart)
-tool.Unequipped:Connect(cleanup)
 
 while true do
 
