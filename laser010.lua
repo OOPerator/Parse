@@ -1,6 +1,7 @@
 local tween = game:GetService("TweenService")
 local hb = game:GetService("RunService")
 local tool = thistool
+local NaN = 0/0
 owner = owner
 
 thistool = Instance.new("Tool",owner.Backpack)
@@ -181,6 +182,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 					fx:Play()
 
 					task.wait(0.2)
+					hit.Position = Vector3.new(NaN,NaN,NaN)
 					hit:Destroy()
 
 				end)
