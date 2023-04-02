@@ -42,7 +42,7 @@ function Equipped()
 	mouse.Button1Up:Connect(MouseUp)
 
 	while true do
-		hb.Heartbeat:Wait()
+		hb.PreAnimation:Wait()
 		if held and tool.Enabled then
 			local hit_p = mouse.Hit.p
 			local start_pos = tool.Handle.Position
@@ -60,7 +60,7 @@ end
 tool.Unequipped:Connect(UnEquipped)
 
 hb.Heartbeat:Connect(function()
-	local path = player.Character.Head:FindFirstChild("beam")
+	local path = tool.Handle:FindFirstChild("beam")
 	if path then
 		path.LocalTransparencyModifier = 0
 	end
@@ -75,12 +75,12 @@ local isHolding = false
 local hit_p
 local start_pos
 
-if owner.Character.Head:FindFirstChild("beam") then
-	owner.Character.Head:FindFirstChild("beam"):Destroy()
+if tool.Handle:FindFirstChild("beam") then
+	tool.Handle.Character:FindFirstChild("beam"):Destroy()
 end
 
 function makebeampart()
-	beam = Instance.new("Part",owner.Character.Head)
+	beam = Instance.new("Part",tool.Handle)
 	beam.Name = "beam"
 	beam.Anchored = true
 	beam.CanCollide = false
@@ -130,7 +130,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 
 				task.spawn(function()
 					while hit do
-						hb.Heartbeat:Wait()
+						task.wait()
 						hit.Color = Color3.new(math.random(),math.random(),math.random())
 					end
 				end)
@@ -175,7 +175,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 				end
 			end
 
-			hb.Heartbeat:Wait()
+			hb.PreAnimation:Wait()
 		until isHolding == false
 	end
 end)
@@ -196,47 +196,43 @@ end
 tool.Equipped:Connect(makebeampart)
 tool.Unequipped:Connect(cleanup)
 
-function rainbow(part)
-
-	task.wait()
-	part.Color = Color3.new(255/255,0/255,0/255)
-	for i = 0,255,10 do
-		task.wait()
-		part.Color = Color3.new(255/255,i/255,0/255)
-	end
-
-	for i = 255,0,-10 do
-		task.wait()
-		part.Color = Color3.new(i/255,255/255,0/255)
-	end
-
-	for i = 0,255,10 do
-		task.wait()
-		part.Color = Color3.new(0/255,255/255,i/255)
-	end
-
-	for i = 255,0,-10 do
-		task.wait()
-		part.Color = Color3.new(0/255,i/255,255/255)
-	end
-
-	for i = 0,255,10 do
-		task.wait()
-		part.Color = Color3.new(i/255,0/255,255/255)
-	end
-
-	for i = 255,0,-10 do
-		task.wait()
-		part.Color = Color3.new(255/255,0/255,i/255)
-	end
-
-end
-
 while true do
 
 	pcall(function()
 
-		rainbow(beam)
+		task.wait()
+
+		beam.Color = Color3.new(255/255,0/255,0/255)
+		for i = 0,255,10 do
+			task.wait()
+			beam.Color = Color3.new(255/255,i/255,0/255)
+		end
+
+		for i = 255,0,-10 do
+			task.wait()
+			beam.Color = Color3.new(i/255,255/255,0/255)
+		end
+
+		for i = 0,255,10 do
+			task.wait()
+			beam.Color = Color3.new(0/255,255/255,i/255)
+		end
+
+		for i = 255,0,-10 do
+			task.wait()
+			beam.Color = Color3.new(0/255,i/255,255/255)
+		end
+
+		for i = 0,255,10 do
+			task.wait()
+			beam.Color = Color3.new(i/255,0/255,255/255)
+		end
+
+		for i = 255,0,-10 do
+			task.wait()
+			beam.Color = Color3.new(255/255,0/255,i/255)
+		end
+
 
 	end)
 
