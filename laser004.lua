@@ -54,8 +54,11 @@ end
 tool.Equipped:Connect(Equipped)
 
 function UnEquipped()
+	held = false
 	tool.Enabled = false
 end
+
+tool.Unequipped:Connect(UnEquipped)
 
 tool.Unequipped:Connect(UnEquipped)
 
