@@ -7,6 +7,12 @@ thistool = Instance.new("Tool",owner.Backpack)
 thistool.Name = "laser"
 thistool.RequiresHandle = true
 
+event1 = Instance.new("RemoteEvent",thistool)
+event1.Name = "Toggle"
+
+event2 = Instance.new("RemoteEvent",thistool)
+event2.Name = "Update"
+
 handle = Instance.new("Part",thistool)
 handle.Name = "Handle"
 handle.Size = Vector3.new(0.2,0.2,0.2)
@@ -92,11 +98,9 @@ if tool.Handle:FindFirstChild("beam") then
 	tool.Handle:FindFirstChild("beam"):Destroy()
 end
 
-toggleRemote = Instance.new("RemoteEvent",tool)
-toggleRemote.Name = "Toggle"
+toggleRemote = tool.Toggle
 
-updatePos = Instance.new("RemoteEvent",tool)
-updatePos.Name = "Update"
+updatePos = tool.Update
 
 function makebeampart()
 	beam = Instance.new("Part",tool.Handle)
@@ -142,13 +146,17 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 			beam.CFrame = CFrame.new(midpoint,hit_p)
 			beam.Size = Vector3.new(1,1,direction.magnitude)
 
-			local function laze(hit)
+						local function laze(hit)
+
 
 				task.spawn(function()
-					while hit do
+					local start = tick()
+
+					while tick() < start + 0.2 do
 						hb.Heartbeat:Wait()
 						hit.Color = Color3.new(math.random(),math.random(),math.random())
 					end
+
 				end)
 
 				task.spawn(function()
@@ -156,7 +164,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 					hit.Material = "Neon"
 
 					local info = TweenInfo.new(	
-						1,						
+						0.2,						
 						Enum.EasingStyle.Elastic,						
 						Enum.EasingDirection.In,					
 						0,
@@ -167,13 +175,13 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 					local goals = 
 						{
 							Transparency = 1;
-							Position = hit.Position + Vector3.new(0,15,15);
+							Position = hit.Position + Vector3.new(30,30,30);
 						}
 
 					local fx = tween:Create(hit,info,goals)
 					fx:Play()
 
-					task.wait(1)
+					task.wait(0.2)
 					hit:Destroy()
 
 				end)
