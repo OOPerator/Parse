@@ -130,7 +130,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 	end
 
 		if not hit_p or not start_pos then
-			repeat wait() until hit_p and start_pos
+			repeat task.wait() until hit_p and start_pos
 		end
 	
 	if tool.Enabled == true then
@@ -148,7 +148,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 
 			local function laze(hit)
 				
-				local fx_duration = 0.3
+				local fx_duration = 0.2
 
 				task.spawn(function()
 					hit.Anchored = false
