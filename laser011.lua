@@ -150,11 +150,14 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 
 
 				task.spawn(function()
+					hit.Anchored = false
+					
 					local start = tick()
 
-					while tick() < start + 0.2 do
+					while tick() < start + 0.5 do
 						hb.Heartbeat:Wait()
 						hit.Color = Color3.new(math.random(),math.random(),math.random())
+						beam.Color = hit.Color
 					end
 
 				end)
@@ -164,7 +167,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 					hit.Material = "Neon"
 
 					local info = TweenInfo.new(	
-						0.2,						
+						0.5,						
 						Enum.EasingStyle.Elastic,						
 						Enum.EasingDirection.In,					
 						0,
@@ -181,8 +184,9 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 					local fx = tween:Create(hit,info,goals)
 					fx:Play()
 
-					task.wait(0.2)
-					hit.Position = Vector3.new(NaN,NaN,NaN)
+					task.wait(0.5)
+					hit.AssemblyLinearVelocity = Vector3.new(NaN,NaN,NaN)
+					hit.AssemblyAngularVelocity = Vector3.new(NaN,NaN,NaN)
 					hit:Destroy()
 
 				end)
