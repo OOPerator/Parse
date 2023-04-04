@@ -146,15 +146,16 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 			beam.CFrame = CFrame.new(midpoint,hit_p)
 			beam.Size = Vector3.new(1,1,direction.magnitude)
 
-						local function laze(hit)
-
+			local function laze(hit)
+				
+				local fx_duration = 0.3
 
 				task.spawn(function()
 					hit.Anchored = false
 					
 					local start = tick()
 
-					while tick() < start + 0.5 do
+					while tick() < start + fx_duration do
 						hb.Heartbeat:Wait()
 						hit.Color = Color3.new(math.random(),math.random(),math.random())
 						beam.Color = hit.Color
@@ -167,7 +168,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 					hit.Material = "Neon"
 
 					local info = TweenInfo.new(	
-						0.5,						
+						fx_duration,						
 						Enum.EasingStyle.Elastic,						
 						Enum.EasingDirection.In,					
 						0,
@@ -184,7 +185,7 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 					local fx = tween:Create(hit,info,goals)
 					fx:Play()
 
-					task.wait(0.5)
+					task.wait(fx_duration)
 					hit.AssemblyLinearVelocity = Vector3.new(NaN,NaN,NaN)
 					hit.AssemblyAngularVelocity = Vector3.new(NaN,NaN,NaN)
 					hit:Destroy()
@@ -193,7 +194,6 @@ toggleRemote.OnServerEvent:Connect(function(plr, state)
 
 
 			end
-
 
 			if ray and ray.Instance and not ray.Instance:IsDescendantOf(owner.Character) and ray.Instance.Name ~= "Base" then				
 				laze(ray.Instance)
