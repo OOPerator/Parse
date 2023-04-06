@@ -2,6 +2,8 @@ local thistool = Instance.new("Tool",owner.Backpack)
 thistool.RequiresHandle = false
 thistool.Name = "1/4"
 
+local remote = Instance.new("RemoteEvent",thistool)
+
 
 NLS([[
 
